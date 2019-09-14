@@ -25,7 +25,7 @@ mean(df$fac_vec)
 
 When I took the mean values of each variable, the numeric and the logical variables worked while the character and the factor variables didn't work.
 
-```{r Problem1,eval=FALSE}
+```{r Problem1_2,eval=FALSE}
 as.numeric(df$ran_samp_pos) #convert the logical vector to a numeric vector
 as.numeric(df$char_vec) #convert the character vector to a numeric vector
 as.numeric(df$fac_vec) #convert the factor vector to a numeric vector
@@ -33,9 +33,39 @@ as.numeric(df$fac_vec) #convert the factor vector to a numeric vector
 
 For the logical vector, it was successfully converted to a numeric vector since the origin values of this vector consists of 0 and 1 which are already numeric values. For the character and the factor vectors, they failed to be converted to numeric vectors since they are not consist of numeric values. Hence, we can take the mean value of a numeric value based vector but we cannot take the mean value of a character vector or a factor vector.
 
-```{r}
+```{r Problem1_3}
 as.numeric(df$ran_samp_pos)*df$ran_samp
 factor(df$ran_samp_pos)*df$ran_samp
 as.numeric(factor(df$ran_samp_pos))*df$ran_samp
+```
+
+```{r Problem2}
+set.seed(2)
+df_2 = tibble(
+  x = rnorm(500),
+  y = rnorm(500),
+  log_vec = x + y > 1,
+  nume_vec = as.numeric(log_vec),
+  fac_vec_new = factor(log_vec)
+)
+```
+
+The number of row in `df_2` is `r nrow(df_2)`; 
+the number of column in `df_2` is `r ncol(df_2)`;
+the mean of x is `r mean(df_2$x)`; 
+the median of x is `r median(df_2$x)`;
+the standard deviation of x is `r sd(df_2$x)`; 
+the proportion of cases for which x + y > 1 is `r mean(df_2$log_vec)`
+
+```{r Problem2_2}
+ggplot(df_2, aes(x = x, y = y, color = log_vec)) + geom_point()
+ggplot(df_2, aes(x = x, y = y, color = nume_vec)) + geom_point()
+ggplot(df_2, aes(x = x, y = y, color = fac_vec_new)) + geom_point()
+```
+
+When colored points using the logical and the factor vectors, the color scale is differed by true or false. However, when colored points using the numeric vectors, the color scale is differed by the numeric values from low to high. As the values get lower the color becomes darker, as the values get higher the color becomes lighter.
+
+```{r}
+ggsave("first_plot.png",plot = ggplot(df_2, aes(x = x, y = y, color = log_vec)) + geom_point())
 ```
 
