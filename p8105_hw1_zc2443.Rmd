@@ -1,28 +1,41 @@
 ---
 title: "p8105_hw1_zc2443"
-output: html_document
+author: "Ziyang Chen zc2443"
+date: 2019-09-14
+output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r Prblem1, message=FALSE}
+library(tidyverse)
+
+set.seed(1)
+df = tibble(
+  ran_samp = rnorm(8), #create random sample of size 8 from a standard Normal distribution
+  ran_samp_pos = ran_samp > 0, #a logical vector indicating whether elements of the sample are greater than 0
+  char_vec = c("p8105","is","so","funny","ziyang","chen","the","brilliant"), #create a character vector of length 8
+  some_vec = c("low","medium","high","low","medium","high","low","high"), #create vector of length 8, with 3 different factor “levels”
+  fac_vec = factor(some_vec) #make the above vector to be a factor vector
+)
+
+mean(df$ran_samp)
+mean(df$ran_samp_pos)
+mean(df$char_vec)
+mean(df$fac_vec)
 ```
 
-## R Markdown
+When I took the mean values of each variable, the numeric and the logical variables worked while the character and the factor variables didn't work.
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r Problem1,eval=FALSE}
+as.numeric(df$ran_samp_pos) #convert the logical vector to a numeric vector
+as.numeric(df$char_vec) #convert the character vector to a numeric vector
+as.numeric(df$fac_vec) #convert the factor vector to a numeric vector
 ```
 
-## Including Plots
+For the logical vector, it was successfully converted to a numeric vector since the origin values of this vector consists of 0 and 1 which are already numeric values. For the character and the factor vectors, they failed to be converted to numeric vectors since they are not consist of numeric values. Hence, we can take the mean value of a numeric value based vector but we cannot take the mean value of a character vector or a factor vector.
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+as.numeric(df$ran_samp_pos)*df$ran_samp
+factor(df$ran_samp_pos)*df$ran_samp
+as.numeric(factor(df$ran_samp_pos))*df$ran_samp
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
