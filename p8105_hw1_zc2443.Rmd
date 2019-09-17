@@ -56,10 +56,10 @@ df_2 = tibble(
 
 The number of row in `df_2` is `r nrow(df_2)`; 
 the number of column in `df_2` is `r ncol(df_2)`;
-the mean of x is `r mean(df_2$x)`; 
-the median of x is `r median(df_2$x)`;
-the standard deviation of x is `r sd(df_2$x)`; 
-the proportion of cases for which x + y > 1 is `r mean(df_2$log_vec)`
+the mean of x is `r mean(pull(df_2,x))`; 
+the median of x is `r median(pull(df_2,x))`;
+the standard deviation of x is `r sd(pull(df_2,x))`; 
+the proportion of cases for which x + y > 1 is `r mean(pull(df_2,log_vec))`
 
 ```{r Problem2_2}
 ggplot(df_2, aes(x = x, y = y, color = log_vec)) + geom_point()
