@@ -5,7 +5,9 @@ date: 2019-09-14
 output: github_document
 ---
 
-```{r Prblem1, message=FALSE}
+## Problem1
+
+```{r Problem1, message=FALSE}
 library(tidyverse)
 
 set.seed(1)
@@ -17,27 +19,29 @@ df = tibble(
   fac_vec = factor(some_vec) #make the above vector to be a factor vector
 )
 
-mean(df$ran_samp)
-mean(df$ran_samp_pos)
-mean(df$char_vec)
-mean(df$fac_vec)
+mean(pull(df,ran_samp))
+mean(pull(df,ran_samp_pos))
+mean(pull(df,char_vec))
+mean(pull(df,fac_vec))
 ```
 
 When I took the mean values of each variable, the numeric and the logical variables worked while the character and the factor variables didn't work.
 
 ```{r Problem1_2,eval=FALSE}
-as.numeric(df$ran_samp_pos) #convert the logical vector to a numeric vector
-as.numeric(df$char_vec) #convert the character vector to a numeric vector
-as.numeric(df$fac_vec) #convert the factor vector to a numeric vector
+as.numeric(pull(df,ran_samp_pos)) #convert the logical vector to a numeric vector
+as.numeric(pull(df,char_vec)) #convert the character vector to a numeric vector
+as.numeric(pull(df,fac_vec)) #convert the factor vector to a numeric vector
 ```
 
 For the logical vector, it was successfully converted to a numeric vector since the origin values of this vector consists of 0 and 1 which are already numeric values. For the character and the factor vectors, they failed to be converted to numeric vectors since they are not consist of numeric values. Hence, we can take the mean value of a numeric value based vector but we cannot take the mean value of a character vector or a factor vector.
 
 ```{r Problem1_3}
-as.numeric(df$ran_samp_pos)*df$ran_samp
-factor(df$ran_samp_pos)*df$ran_samp
-as.numeric(factor(df$ran_samp_pos))*df$ran_samp
+as.numeric(pull(df,ran_samp_pos))*pull(df,ran_samp)
+factor(pull(df,ran_samp_pos))*pull(df,ran_samp)
+as.numeric(factor(pull(df,ran_samp_pos)))*pull(df,ran_samp)
 ```
+
+## Problem2
 
 ```{r Problem2}
 set.seed(2)
