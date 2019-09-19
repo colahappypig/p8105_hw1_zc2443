@@ -33,7 +33,7 @@ as.numeric(pull(df,char_vec)) #convert the character vector to a numeric vector
 as.numeric(pull(df,fac_vec)) #convert the factor vector to a numeric vector
 ```
 
-For the logical vector, it was successfully converted to a numeric vector since the origin values of this vector consists of 0 and 1 which are already numeric values. For the character and the factor vectors, they failed to be converted to numeric vectors since they are not consist of numeric values. Hence, we can take the mean value of a numeric value based vector but we cannot take the mean value of a character vector or a factor vector.
+For the logical vector, it was successfully converted to a numeric vector since the origin values of this vector consists of 0 and 1 which are already numeric values. For the character vector, it failed to be converted to numeric vectors since they are not consist of numeric values. For the factor vector, it is transformed to numeric values 1,2 and 3 corresponding to three levels. Hence, we can take the mean value of a numeric value based vector but we cannot take the mean value of a character vector. For a factor vector, it is originally consists of characters such that we cannot take the mean of it.
 
 ```{r Problem1_3}
 as.numeric(pull(df,ran_samp_pos))*pull(df,ran_samp)
